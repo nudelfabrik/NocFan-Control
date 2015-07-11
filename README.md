@@ -1,5 +1,5 @@
-NoctuaFan
-=========
+NoctFan Control
+===============
 
 Control a 4-pin PWM Fan with an Arduino.   
 

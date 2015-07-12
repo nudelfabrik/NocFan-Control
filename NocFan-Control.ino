@@ -104,7 +104,6 @@ void loop()
         double frequency = 1000000/pulseDuration;
         Serial.print("RPM:");
         Serial.println(frequency/2*60);
-        Serial.println(sizeof(speedValues));
     }
     // Cycle through the different Values
     if (handle_button()) {

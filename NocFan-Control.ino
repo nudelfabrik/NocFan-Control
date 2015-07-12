@@ -53,7 +53,7 @@ void setup()
 // and TC2 is used for our 1-millisecond tick. TC1 controls the PWM on Arduino pins 9 and 10.
 // However, we can only get PWM on pin 10 (controlled by OCR1B) because we are using OCR1A to define the TOP value.
 // Using a prescaler of 8 and a TOP value of 80 gives us a frequency of 16000/(8 * 80) = 25KHz exactly.
-    TCCR1A = (1 << COM1B1) | (1 << COM1B0) | (1 << WGM11) | (1 << WGM10);  // OC1A (pin 9) disconnected, OC1B (pin 10) = inverted fast PWM  
+    TCCR1A = (1 << COM1B1) | (0 << COM1B0) | (1 << WGM11) | (1 << WGM10);  // OC1A (pin 9) disconnected, OC1B (pin 10) = inverted fast PWM  
     OCR1AH = 0;
     OCR1AL = 79;  // TOP = 79
     TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11);  // TOP = OCR0A, prescaler = 8
@@ -104,16 +104,18 @@ void loop()
         double frequency = 1000000/pulseDuration;
         Serial.print("RPM:");
         Serial.println(frequency/2*60);
+        Serial.println(sizeof(speedValues));
     }
     // Cycle through the different Values
     if (handle_button()) {
-        if (curSpeed == (sizeof(values) - 1)) {
+        if (curSpeed == (4 - 1)) {
+            
             curSpeed = 0;
         } else {
             curSpeed++;
         }
-        setTransistorFanSpeed(values[curSpeed]);
-        Serial.println(values[curSpeed]);
+        setTransistorFanSpeed(speedValues[curSpeed]);
+        Serial.println(speedValues[curSpeed]);
     }
     delay(DELAY);
 
